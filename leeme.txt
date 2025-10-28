@@ -1,0 +1,189 @@
+# Renderside API - Guía de Instalación y Ejecución
+
+## 📋 Requisitos del Sistema
+
+- **Node.js**: Versión 14.x o superior (recomendado: Node.js 18+ para mejor compatibilidad)
+- **npm**: Incluido con Node.js
+- **Sistema Operativo**: Windows, macOS, o Linux
+- **Memoria RAM**: Mínimo 512MB disponible
+- **Espacio en disco**: 200MB para dependencias
+
+## 🚀 Instalación
+
+### 1. Clonar o descargar el proyecto
+```bash
+cd ruta/del/proyecto/renderside
+```
+
+### 2. Instalar dependencias
+```bash
+npm install
+```
+
+**Dependencias principales que se instalarán:**
+- `express`: Framework web para Node.js
+- `jsonwebtoken`: Manejo de tokens JWT para autenticación
+- `sqlite3` & `sqlite`: Base de datos local SQLite
+- `cors`: Manejo de CORS para requests desde diferentes dominios
+- `body-parser`: Parser de cuerpos de requests HTTP
+- `nodemailer`: Envío de emails para recuperación de contraseña
+- `dotenv`: Carga de variables de entorno desde archivo .env
+
+### 3. Configurar variables de entorno
+
+Crear archivo `.env` en la raíz del proyecto con las siguientes variables:
+
+```env
+# Clave secreta para firmar tokens JWT (REQUERIDA)
+secret=tu_clave_secreta_muy_segura_aqui
+
+# Puerto del servidor (opcional, por defecto: 3000)
+PORT=3000
+
+# Configuración de CORS (opcional, por defecto: *)
+CORS_ORIGIN=*
+
+# Entorno de ejecución (opcional)
+NODE_ENV=development
+```
+
+**⚠️ IMPORTANTE:** El archivo `.env` ya existe y contiene una clave secreta. NO lo modifiques a menos que sepas lo que haces.
+
+## 🎯 Ejecución
+
+### Modo desarrollo (recomendado)
+```bash
+npm start
+```
+
+### Ejecución directa
+```bash
+node server.js
+```
+
+### Con variables de entorno específicas
+```bash
+PORT=8080 NODE_ENV=production npm start
+```
+
+## ✅ Verificación de la instalación
+
+Si todo está correcto, deberías ver en la consola:
+```
+🚀 Server running on port 3000
+🌍 Environment: development
+🔐 JWT Secret: ✅ Loaded
+🔗 CORS Origin: *
+📊 Database: SQLite initialized
+⏰ Started at: 2025-10-13T...
+```
+
+### Probar la API
+Abre tu navegador o herramienta como Postman y accede a:
+- **Health Check**: `http://localhost:3000/`
+- **Crear usuario**: `http://localhost:3000/auth/create/test@email.com/password123/NombreUsuario`
+
+## 📁 Estructura del Proyecto
+
+```
+app/
+├── .env                    # Variables de entorno (JWT secret, etc.)
+├── .data/                  # Base de datos SQLite (se crea automáticamente)
+├── images/                 # Imágenes de perfil de usuarios
+├── package.json           # Dependencias y scripts
+├── server.js              # Archivo principal del servidor
+└── src/
+    ├── router.js          # Configuración de rutas principales
+    ├── helpers/
+    │   └── jwt.js         # Helper para manejo de JWT
+    ├── middleware/
+    │   ├── validateToken.js    # Validación de autenticación
+    │   └── validateLevel.js    # Validación de niveles de usuario
+    ├── routes/            # Rutas de la API
+    │   ├── auth.js        # Autenticación y registro
+    │   ├── user.js        # Perfil y datos de usuario
+    │   ├── codes.js       # Códigos VR temporales
+    │   ├── license.js     # Gestión de licencias (supervisores)
+    │   ├── results.js     # Resultados VR (supervisores)
+    │   └── modules.js     # Módulos educativos
+    └── utils/
+        └── sqlite.js      # Configuración de base de datos
+```
+
+## 🔧 Configuración Avanzada
+
+### Cambiar puerto de escucha
+En el archivo `.env`, modificar:
+```env
+PORT=8080
+```
+
+### Configurar CORS para producción
+```env
+CORS_ORIGIN=https://tudominio.com
+```
+
+### Habilitar logs de desarrollo
+```env
+NODE_ENV=development
+```
+
+## 🗄️ Base de Datos
+
+La aplicación usa **SQLite** y se inicializa automáticamente en el primer arranque:
+- **Ubicación**: `./.data/roadsproject.db`
+- **Tablas creadas**: Users, Codes, Modules, Results
+- **Datos iniciales**: 3 usuarios administradores pre-configurados
+
+### Usuarios pre-configurados:
+- `gunderwulde@gmail.com` (Nivel 999 - Admin)
+- `angel.gil@renderside.com` (Nivel 999 - Admin)  
+- `alfonso.cortes@ac2sc.es` (Nivel 999 - Admin)
+
+## 🛡️ Seguridad
+
+- Las contraseñas están hasheadas con SHA-1 (⚠️ considerar migrar a bcrypt)
+- Tokens JWT con expiración configurable
+- Validación de niveles de usuario por rutas
+- CORS configurable para diferentes entornos
+
+## 🐛 Solución de Problemas
+
+### Error: "SECRET environment variable is required"
+- Verificar que el archivo `.env` existe y contiene `secret=...`
+
+### Error: "EADDRINUSE" (puerto en uso)
+- Cambiar el puerto en `.env` o cerrar la aplicación que usa el puerto 3000
+
+### Error de dependencias
+- Eliminar `node_modules` y ejecutar `npm install` nuevamente
+- Verificar versión de Node.js: `node --version`
+
+### Base de datos corrupta
+- Eliminar archivo `.data/roadsproject.db` (se recreará automáticamente)
+
+## 📚 API Endpoints Principales
+
+- **POST** `/auth/:email/:password` - Login
+- **GET** `/auth/create/:email/:password/:name` - Registro
+- **GET** `/user/` - Perfil de usuario (requiere token)
+- **GET** `/codes/validate/:code` - Validar código VR
+- **GET** `/modules/` - Módulos educativos (requiere token)
+- **GET** `/license/userslist/:offset/:limit` - Lista usuarios (supervisor)
+
+## 🔄 Actualizaciones
+
+Para actualizar dependencias:
+```bash
+npm update
+```
+
+Para verificar vulnerabilidades:
+```bash
+npm audit
+npm audit fix
+```
+
+---
+
+**📧 Soporte**: Para problemas técnicos, revisar logs de consola y verificar configuración de `.env`
