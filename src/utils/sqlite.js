@@ -78,7 +78,7 @@ dbWrapper.open({ filename: dbFile, driver: sqlite3.Database }).then(async dBase 
             
             // DUPLICADO: Usuario angel.gil@renderside.com (esto creará un registro duplicado)
             // TODO: Eliminar esta línea duplicada
-            await process.db.run("INSERT INTO Users (email, password, name, level, license) VALUES ('angel.gil@renderside.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Angel', 999, DATETIME(datetime('now'), '+10 years'))");
+            //await process.db.run("INSERT INTO Users (email, password, name, level, license) VALUES ('angel.gil@renderside.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Angel', 999, DATETIME(datetime('now'), '+10 years'))");
             
         }
         
