@@ -1,6 +1,6 @@
 // Importación de librerías necesarias
 const fs = require("fs"); // Sistema de archivos para verificar existencia de BD
-const dbFile = "/opt/render/.roadsproject/roadsproject.bd"; ////"./.data/roadsproject.db"; // Ruta del archivo de base de datos SQLite__debido al disco persistente
+const dbFile = "./opt/render/.roadsproject/roadsproject.bd"; ////"./.data/roadsproject.db"; // Ruta del archivo de base de datos SQLite__debido al disco persistente
 const sqlite3 = require("sqlite3").verbose(); // Driver SQLite3 con logging detallado
 const dbWrapper = require("sqlite"); // Wrapper que promisifica sqlite3
 
