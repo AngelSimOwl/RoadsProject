@@ -68,7 +68,7 @@ dbWrapper.open({ filename: dbFile, driver: sqlite3.Database }).then(async dBase 
             await process.db.run("INSERT INTO Users (email, password, name, level, license) VALUES ('gunderwulde@gmail.com', '2d0adf37f56b2041d6312a54d1e2f7afc6b4f61f', 'Fernando', 999, DATETIME(datetime('now'), '+10 years'))");
             
             // Usuario 2: angel.gil@renderside.com (nivel 999 = superadministrador)
-            await process.db.run("INSERT INTO Users (email, password, name, level, license) VALUES ('angel.gil@renderside.com', '40bd001563085fc35165329ea1ff5c5ecbdbbeef', 'Angel', 999, DATETIME(datetime('now'), '+10 years'))");
+            await process.db.run("INSERT INTO Users (email, password, name, level, license) VALUES ('angel.gil@renderside.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'Angel', 999, DATETIME(datetime('now'), '+10 years'))");
             
             // Usuario 3: alfonso.cortes@ac2sc.es (administrador con licencia extendida)
             await process.db.run("INSERT INTO Users (email, password, name, level, license) VALUES ('alfonso.cortes@ac2sc.es', 'd3a7be047e71b8ec096cbd70f52f834d305fd514', 'Alfonso', 999, DATETIME(datetime('now'), '+10 years'))");
