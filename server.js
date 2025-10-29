@@ -83,7 +83,7 @@ app.use((error, req, res, next) => {
 
 // Configuración del puerto del servidor
 // Usa variable de entorno PORT o puerto 3000 por defecto
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 10000;
 
 // Iniciar el servidor HTTP
 const server = app.listen(PORT, () => {
